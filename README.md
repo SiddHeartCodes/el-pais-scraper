@@ -72,17 +72,18 @@ locally and in cloud environments.
 
 ### Structure Rationale
 
-  Directory   Purpose
-  ----------- --------------------------------
-  config      Centralized configuration
-  utils       Logging and helpers
-  services    API and BrowserStack utilities
-  scraper     Website-specific logic
-  analysis    Word processing
-  main.js     Application entry point
+### Structure Rationale
 
-This modular architecture improves scalability, testing, and
-maintainability.
+| Directory | Purpose                          |
+|-----------|----------------------------------|
+| config    | Centralized configuration        |
+| utils     | Logging and helpers              |
+| services  | API and BrowserStack utilities   |
+| scraper   | Website-specific logic           |
+| analysis  | Word processing                  |
+| main.js   | Application entry point          |
+
+This modular architecture improves scalability, testing, and maintainability.
 
 ------------------------------------------------------------------------
 
