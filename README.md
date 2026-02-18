@@ -72,8 +72,6 @@ locally and in cloud environments.
 
 ### Structure Rationale
 
-### Structure Rationale
-
 | Directory | Purpose                          |
 |-----------|----------------------------------|
 | config    | Centralized configuration        |
