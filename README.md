@@ -1,240 +1,283 @@
-# El País Opinion Scraper – Selenium + BrowserStack
+# 📘 El País Opinion Scraper
 
-## Overview
+### Selenium Automation Framework with BrowserStack Integration
 
-This project is a Selenium-based automation framework demonstrating:
+------------------------------------------------------------------------
 
-- Web scraping
-- API integration
-- Text processing
-- Cross-browser execution using BrowserStack
+## 📌 Overview
 
-The script performs the following:
+This project is a **production-grade Selenium automation framework**
+designed to demonstrate advanced web automation, scraping, and
+cloud-based testing practices.
 
-- Navigates to the El País Opinion section (Spanish version)
-- Extracts the first five articles
-- Scrapes article titles and full content
-- Downloads the primary article image (if available)
-- Translates article titles to English using a translation API
-- Performs word frequency analysis on translated titles
-- Executes locally and on BrowserStack
-- Handles dynamic DOM updates and flaky environments
+It showcases:
 
-The codebase is structured to reflect production-style automation practices with modular design and defensive handling.
+-   Automated web scraping
+-   API integration
+-   Text analysis
+-   Cloud execution with BrowserStack
+-   Defensive automation design
 
----
+The framework navigates to the **El País Opinion section**, extracts
+articles, processes content, and performs linguistic analysis, both
+locally and in cloud environments.
 
-## Tech Stack
+------------------------------------------------------------------------
 
-- Node.js
-- Selenium WebDriver
-- Axios
-- BrowserStack Automate
-- dotenv
+## 🚀 Key Features
 
----
+-   Scrapes top 5 opinion articles
+-   Extracts titles and full content
+-   Downloads primary images
+-   Translates titles to English
+-   Performs word-frequency analysis
+-   Supports local and cloud execution
+-   Handles dynamic DOM updates
+-   Implements robust failure recovery
+-   Captures screenshots on errors
 
-## Project Structure
+------------------------------------------------------------------------
 
-el-pais-scraper/
+## 🛠️ Tech Stack
 
-- src/
-  - analysis/
-  - config/
-  - scraper/
-  - services/
-  - utils/
-  - main.js
-  - run-parallel.js
+  Technology           Purpose
+  -------------------- ------------------------
+  Node.js              Runtime Environment
+  Selenium WebDriver   Browser Automation
+  Axios                API Requests
+  BrowserStack         Cloud Testing Platform
+  dotenv               Environment Management
 
-- images/
-- screenshots/
-- .env
-- .gitignore
-- package.json
-- README.md
+------------------------------------------------------------------------
+
+## 📁 Project Structure
+
+    el-pais-scraper/
+    │
+    ├── src/
+    │   ├── analysis/
+    │   ├── config/
+    │   ├── scraper/
+    │   ├── services/
+    │   ├── utils/
+    │   ├── main.js
+    │   └── run-parallel.js
+    │
+    ├── images/
+    ├── screenshots/
+    ├── .env
+    ├── .gitignore
+    ├── package.json
+    └── README.md
 
 ### Structure Rationale
 
-- config/ – Centralized configuration
-- utils/ – Logging, Selenium wrappers, file utilities
-- services/ – Translation API, image downloading, BrowserStack reporting
-- scraper/ – Website-specific scraping logic
-- analysis/ – Word frequency analysis
-- main.js – Orchestration layer
+  Directory   Purpose
+  ----------- --------------------------------
+  config      Centralized configuration
+  utils       Logging and helpers
+  services    API and BrowserStack utilities
+  scraper     Website-specific logic
+  analysis    Word processing
+  main.js     Application entry point
 
-This separation improves clarity and maintainability.
+This modular architecture improves scalability, testing, and
+maintainability.
 
----
+------------------------------------------------------------------------
 
-## Prerequisites
+## ✅ Prerequisites
 
-- Node.js v18+
-- Google Chrome (for local execution)
-- BrowserStack account (for cloud execution)
-- npm
+-   Node.js v18+
+-   Google Chrome
+-   BrowserStack Account
+-   npm
 
----
+------------------------------------------------------------------------
 
-## Installation
+## 📦 Installation
 
-Clone the repository:
+### Clone Repository
 
+``` bash
 git clone <repository-url>
 cd el-pais-scraper
+```
 
-Install dependencies:
+### Install Dependencies
 
+``` bash
 npm install
+```
 
----
+------------------------------------------------------------------------
 
-## Environment Configuration
+## 🔐 Environment Configuration
 
-Create a .env file in the project root:
+Create a `.env` file in the project root:
 
-BROWSERSTACK_USERNAME=your_username  
-BROWSERSTACK_ACCESS_KEY=your_access_key  
+``` env
+BROWSERSTACK_USERNAME=your_username
+BROWSERSTACK_ACCESS_KEY=your_access_key
+```
 
-These credentials are required only for BrowserStack execution.
+⚠️ Do NOT commit this file.
 
-Do not commit the .env file.
+------------------------------------------------------------------------
 
----
+## ▶️ Running Locally
 
-## Running Locally
-
+``` bash
 npm start
+```
 
-If BrowserStack credentials are not present, the script automatically runs in local mode.
+If BrowserStack credentials are unavailable, the framework defaults to
+local execution.
 
----
+------------------------------------------------------------------------
 
-## Running on BrowserStack
+## ☁️ Running on BrowserStack
 
-With valid credentials in .env:
+With valid credentials:
 
+``` bash
 npm start
+```
 
-The script switches automatically to BrowserStack mode.
+View execution at:
 
-Execution can be verified at:
+    https://automate.browserstack.com
 
-https://automate.browserstack.com
+------------------------------------------------------------------------
 
----
+## 🌐 Multi-Browser Execution
 
-## Multi-Browser Execution
-
+``` bash
 npm run parallel
+```
 
-This executes the script sequentially across multiple browser/OS configurations.
+Executes across multiple browser/OS configurations.
 
-Note: Actual parallel execution depends on BrowserStack account limits.
+> Parallelism depends on account limits.
 
----
+------------------------------------------------------------------------
 
-## Output Behavior
+## 📤 Output Behavior
 
-For each article, the script:
+For each article:
 
-- Prints the Spanish title
-- Prints full article content
-- Logs content length
-- Saves article image (if available)
-- Logs confirmation of image save
-- Prints translated English title
+-   Displays Spanish title
+-   Extracts full content
+-   Logs content length
+-   Downloads image (if available)
+-   Prints translated title
 
 After completion:
 
-- Displays repeated words (occurring more than twice)
-- Closes the browser session gracefully
+-   Displays repeated words
+-   Terminates sessions safely
 
----
+------------------------------------------------------------------------
 
-## Word Analysis Logic
+## 📊 Word Analysis Logic
 
-- Titles normalized to lowercase
-- Non-alphabet characters removed
-- Words shorter than three characters ignored
-- Frequency map constructed
-- Words with frequency greater than two displayed
+-   Converts to lowercase
+-   Removes special characters
+-   Ignores words \< 3 characters
+-   Builds frequency map
+-   Displays words with frequency \> 2
 
----
+------------------------------------------------------------------------
 
-## Reliability Considerations
+## 🧠 Reliability Design
 
-El País uses dynamic DOM updates, advertisements, and lazy loading.
+El País uses dynamic loading and ads.
 
-The implementation includes:
+This framework includes:
 
-- Explicit waits
-- Navigation retries
-- Timeout enforcement
-- Stale element handling
-- Session health checks
-- Article-level failure isolation
+-   Explicit waits
+-   Retry mechanisms
+-   Timeout controls
+-   Stale element recovery
+-   Session monitoring
+-   Article-level isolation
 
-Failures in one article do not terminate the full execution.
+One failure never stops full execution.
 
----
+------------------------------------------------------------------------
 
-## Error Handling
+## ⚠️ Error Handling
 
-The framework handles:
+Handled scenarios:
 
-- Missing titles
-- Missing content sections
-- Articles without images
-- Translation API failures
-- Stale element references
-- Network interruptions
-- BrowserStack session termination
+-   Missing titles
+-   Absent content
+-   Missing images
+-   API failures
+-   Network drops
+-   Cloud session loss
 
-Screenshots are captured automatically on failure.
+Automatic screenshots on failure.
 
----
+------------------------------------------------------------------------
 
-## BrowserStack Validation
+## 📈 BrowserStack Validation
 
-Each BrowserStack execution provides:
+Each cloud run provides:
 
-- Recorded session video
-- Environment metadata
-- Console logs
-- Pass/Fail status
+-   Video recording
+-   Device/browser metadata
+-   Console logs
+-   Pass/Fail status
 
-These are available in the BrowserStack Automate dashboard.
+Available in Automate dashboard.
 
----
+------------------------------------------------------------------------
 
-## Security
+## 🔒 Security Practices
 
-- Credentials stored using environment variables
-- No secrets hardcoded
-- .env excluded from version control
+-   Environment variables for secrets
+-   No hardcoded credentials
+-   Secure `.gitignore` usage
 
----
+------------------------------------------------------------------------
 
-## Limitations
+## ⛔ Limitations
 
-- El País may apply rate limiting
-- Cloud IPs may face soft blocking
-- True parallelism depends on account quota
-- No proxy rotation implemented
+-   Possible rate limiting
+-   Cloud IP blocking
+-   Limited parallelism
+-   No proxy rotation
 
----
+------------------------------------------------------------------------
 
-## Future Enhancements
+## 🔮 Future Enhancements
 
-- CI/CD integration
-- Structured test reports
-- Mobile device profiles
-- Persistent storage of scraped data
-- Proxy support
+-   CI/CD pipelines
+-   Advanced reporting
+-   Mobile testing
+-   Database storage
+-   Proxy support
+-   Test dashboards
 
----
+------------------------------------------------------------------------
 
-## Author
+## 👤 Author
 
-Siddharth Chakravarty
+**Siddharth Chakravarty**\
+Computer Science Engineer\
+Automation & Testing Enthusiast
+
+------------------------------------------------------------------------
+
+## ⭐ Final Note
+
+This framework reflects **real-world automation engineering practices**,
+emphasizing:
+
+-   Maintainability
+-   Reliability
+-   Scalability
+-   Professional coding standards
+
+Designed to meet enterprise-level expectations.
