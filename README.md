@@ -40,13 +40,13 @@ locally and in cloud environments.
 
 ## 🛠️ Tech Stack
 
-  Technology           Purpose
-  -------------------- ------------------------
-  Node.js              Runtime Environment
-  Selenium WebDriver   Browser Automation
-  Axios                API Requests
-  BrowserStack         Cloud Testing Platform
-  dotenv               Environment Management
+| Technology         | Purpose                  |
+|--------------------|--------------------------|
+| Node.js            | Runtime Environment      |
+| Selenium WebDriver | Browser Automation       |
+| Axios              | API Requests             |
+| BrowserStack       | Cloud Testing Platform   |
+| dotenv             | Environment Management   |
 
 ------------------------------------------------------------------------
 
