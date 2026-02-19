@@ -46,8 +46,24 @@ locally and in cloud environments.
 | Node.js            | Runtime Environment      |
 | Selenium WebDriver | Browser Automation       |
 | Axios              | API Requests             |
+| MyMemory API       | Translation (es → en)    |
 | BrowserStack       | Cloud Testing Platform   |
 | dotenv             | Environment Management   |
+
+------------------------------------------------------------------------
+
+## 🌐 Translation API
+
+Article titles are translated from Spanish to English using **MyMemory**
+(Translated.net), a free translation API:
+
+-   **Endpoint:** `https://api.mymemory.translated.net/get`
+-   **Parameters:** `q` (text), `langpair=es|en`
+-   **No API key required** for normal usage (rate limits apply)
+
+Configured in `src/config/config.js` as `TRANSLATION_API`. The service
+includes retries on failure and falls back to the original title if
+translation fails.
 
 ------------------------------------------------------------------------
 
@@ -184,9 +200,8 @@ After completion:
 ## 📊 Word Analysis Logic
 
 -   Converts to lowercase
--   Removes special characters
--   Ignores words \< 3 characters
--   Builds frequency map
+-   Removes special characters (non-letters)
+-   Builds frequency map across all translated titles
 -   Displays words with frequency \> 2
 
 ------------------------------------------------------------------------
