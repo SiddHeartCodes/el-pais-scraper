@@ -1,11 +1,13 @@
 const { spawn } = require("child_process");
 
 const configs = [
+  /* Desktop browsers */
   { browser: "Chrome", os: "Windows", osVersion: "11" },
   { browser: "Firefox", os: "Windows", osVersion: "10" },
   { browser: "Edge", os: "Windows", osVersion: "11" },
-  { browser: "Chrome", os: "OS X", osVersion: "Ventura" },
-  { browser: "Safari", os: "OS X", osVersion: "Monterey" }
+  /* Mobile browsers */
+  { browser: "Chrome", os: "Android", osVersion: "12.0", device: "Samsung Galaxy S22" },
+  { browser: "Safari", os: "ios", osVersion: "16", device: "iPhone 14" }
 ];
 
 function runTest(config, index) {
@@ -19,6 +21,11 @@ function runTest(config, index) {
       BS_OS_VERSION: config.osVersion,
       RUN_ID: index
     };
+
+    /* Add device name if specified (for mobile) */
+    if (config.device) {
+      env.BS_DEVICE = config.device;
+    }
 
     const proc = spawn("node", ["src/main.js"], { env });
 

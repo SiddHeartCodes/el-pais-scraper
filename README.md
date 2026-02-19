@@ -156,7 +156,9 @@ View execution at:
 npm run parallel
 ```
 
-Executes across multiple browser/OS configurations.
+Executes across multiple browser/OS configurations:
+- **Desktop**: Chrome (Windows), Firefox (Windows), Edge (Windows)
+- **Mobile**: Chrome (Android), Safari (iOS)
 
 > Parallelism depends on account limits.
 

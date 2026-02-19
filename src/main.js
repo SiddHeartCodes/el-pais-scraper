@@ -37,14 +37,17 @@ function createDriver() {
 
     const browser = process.env.BS_BROWSER || "Chrome";
     const browserLower = browser.toLowerCase();
+    const os = process.env.BS_OS || "Windows";
+    const osVersion = process.env.BS_OS_VERSION || "11";
+    const device = process.env.BS_DEVICE;
 
     const capabilities = {
       browserName: browser,
       browserVersion: "latest",
 
       "bstack:options": {
-        os: process.env.BS_OS || "Windows",
-        osVersion: process.env.BS_OS_VERSION || "11",
+        os: os,
+        osVersion: osVersion,
 
         sessionName: `El Pais Run ${process.env.RUN_ID || 1}`,
         buildName: "ElPais-Automation",
@@ -54,8 +57,13 @@ function createDriver() {
       }
     };
 
-    /* Set Spanish language preference - universal approach */
-    /* Try browser-specific capabilities first, then JavaScript will enforce it */
+    /* Add device name for mobile browsers */
+    if (device) {
+      capabilities["bstack:options"].deviceName = device;
+    }
+
+    /* Set Spanish language preference */
+    /* Trying browser-specific capabilities first, then JavaScript will enforce it */
     if (browserLower === "chrome" || browserLower === "edge") {
       capabilities["goog:chromeOptions"] = {
         args: ["--lang=es-ES"],
@@ -71,13 +79,12 @@ function createDriver() {
         }
       };
     }
-    /* Note: JavaScript injection in forceSpanishLanguage() will handle all browsers */
+    /* JavaScript injection in forceSpanishLanguage() will handle all browsers */
 
-    const os = process.env.BS_OS || "Windows";
-    const osVersion = process.env.BS_OS_VERSION || "11";
+    const deviceInfo = device ? ` | Device: ${device}` : "";
 
     logger.info(
-      `Running on BrowserStack: ${browser} | ${os} ${osVersion} | Language: es-ES`
+      `Running on BrowserStack: ${browser} | ${os} ${osVersion}${deviceInfo} | Language: es-ES`
     );
 
     return new Builder()
