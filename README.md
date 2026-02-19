@@ -27,6 +27,7 @@ locally and in cloud environments.
 ## 🚀 Key Features
 
 -   Scrapes top 5 opinion articles
+-   **Ensures Spanish language display** (explicit browser language preference)
 -   Extracts titles and full content
 -   Downloads primary images
 -   Translates titles to English
@@ -185,6 +186,34 @@ After completion:
 -   Ignores words \< 3 characters
 -   Builds frequency map
 -   Displays words with frequency \> 2
+
+------------------------------------------------------------------------
+
+## 🌐 Language Configuration
+
+The framework **explicitly sets Spanish language preferences** using a
+**universal approach** that works across all browsers:
+
+### Universal Method (All Browsers)
+-   **JavaScript injection** after page load sets language preferences
+-   Overrides `navigator.language` and `navigator.languages`
+-   Sets document language attributes
+-   Adds Accept-Language meta tag
+-   **Works universally** - no browser detection needed
+
+### Browser-Specific Optimizations (Optional)
+-   **Chrome/Edge**: Also sets `goog:chromeOptions` for initial request
+-   **Firefox**: Also sets `moz:firefoxOptions` preferences
+-   These are optimizations; JavaScript ensures language is set regardless
+
+### Benefits
+-   ✅ Works on **all browsers** without browser-specific code paths
+-   ✅ Ensures Spanish content display consistently
+-   ✅ No need to detect browser type
+-   ✅ Fallback mechanism if browser capabilities fail
+
+This guarantees that El País serves Spanish content regardless of the
+system's default language settings or browser type.
 
 ------------------------------------------------------------------------
 

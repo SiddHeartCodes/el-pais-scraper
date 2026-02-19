@@ -1,11 +1,12 @@
 require("dotenv").config();
 
 const { Builder } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
 
 const config = require("./config/config");
 const logger = require("./utils/logger");
 const { ensureImageDir } = require("./utils/file");
-const { waitForReady } = require("./utils/selenium");
+const { waitForReady, forceSpanishLanguage } = require("./utils/selenium");
 
 const handleCookies = require("./services/cookies");
 const translate = require("./services/translator");
@@ -34,8 +35,11 @@ function createDriver() {
     const remoteUrl =
       `https://${BS_USER}:${BS_KEY}@hub-cloud.browserstack.com/wd/hub`;
 
+    const browser = process.env.BS_BROWSER || "Chrome";
+    const browserLower = browser.toLowerCase();
+
     const capabilities = {
-      browserName: process.env.BS_BROWSER || "Chrome",
+      browserName: browser,
       browserVersion: "latest",
 
       "bstack:options": {
@@ -50,12 +54,30 @@ function createDriver() {
       }
     };
 
-    const browser = process.env.BS_BROWSER || "Chrome";
+    /* Set Spanish language preference - universal approach */
+    /* Try browser-specific capabilities first, then JavaScript will enforce it */
+    if (browserLower === "chrome" || browserLower === "edge") {
+      capabilities["goog:chromeOptions"] = {
+        args: ["--lang=es-ES"],
+        prefs: {
+          "intl.accept_languages": "es-ES,es,en-US,en"
+        }
+      };
+    } else if (browserLower === "firefox") {
+      capabilities["moz:firefoxOptions"] = {
+        prefs: {
+          "intl.accept_languages": "es-ES,es,en-US,en",
+          "general.useragent.locale": "es-ES"
+        }
+      };
+    }
+    /* Note: JavaScript injection in forceSpanishLanguage() will handle all browsers */
+
     const os = process.env.BS_OS || "Windows";
     const osVersion = process.env.BS_OS_VERSION || "11";
 
     logger.info(
-      `Running on BrowserStack: ${browser} | ${os} ${osVersion}`
+      `Running on BrowserStack: ${browser} | ${os} ${osVersion} | Language: es-ES`
     );
 
     return new Builder()
@@ -65,10 +87,17 @@ function createDriver() {
   }
 
   /* Local Mode */
-  logger.info("Running locally");
+  logger.info("Running locally with Spanish language preference");
+
+  const options = new chrome.Options();
+  options.addArguments("--lang=es-ES");
+  options.setUserPreferences({
+    "intl.accept_languages": "es-ES,es,en-US,en"
+  });
 
   return new Builder()
     .forBrowser("chrome")
+    .setChromeOptions(options)
     .build();
 }
 
@@ -93,6 +122,9 @@ async function safeNavigate(driver, url, retries = 3) {
 
       await driver.get(url);
       await waitForReady(driver);
+      
+      /* Force Spanish language universally after page load */
+      await forceSpanishLanguage(driver);
 
       return;
 
