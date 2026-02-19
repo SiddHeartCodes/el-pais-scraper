@@ -11,8 +11,8 @@ function analyze(titles) {
     const words = title
       .toLowerCase()
       .replace(/[^a-z\s]/g, "")
-      .split(/\s+/)
-      .filter(w => w.length > 2);
+      .trim()
+      .split(/\s+/);
 
     for (const word of words) {
       freq.set(word, (freq.get(word) || 0) + 1);
